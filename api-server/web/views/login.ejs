@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>登陆</title>
+</head>
+<style>
+    .oauth-box {
+        width: 400px;
+        border: 1px solid #AAA;
+        background-color: #EEE;
+        padding: 8px 20px;
+        margin: auto;
+    }
+    .text-muted {
+        color: #888;
+        font-size: 81.5%;
+    }
+    .btn-primary {
+        background-color: #0051FF;
+        border: 1px solid #AAA;
+        font-size: 100%;
+        color: #FFF;
+        padding: 4px 20px;
+        cursor: pointer;
+    }
+</style>
+<body>
+<div class="oauth-box">
+    <h3>登陆</h3>
+    <% if(!user){ %>
+    <form method="post">
+        <hr>
+        <p class="text-muted">用户名：<input type="text" name="user"></p>
+        <p class="text-muted">密　码：<input type="password" name="password"></p>
+        <input type="hidden" name='redirectUri' value="<%= redirect_uri %>">
+        <hr>
+        <button type="submit" class="btn-primary">确定</button>
+
+    </form>
+    <% }else { %>
+        <hr>
+        <p class="text-muted">欢迎你：<%= user %></p>
+        <div class="redirectDiv" style="display:none"><%= redirect_uri %></div>
+        <button type="button" class="btn-primary" onclick="logout()">注销</button>
+        <button type="button" class="btn-primary" onclick="redirectOrigin()">跳转回去</button>
+    <% } %>
+</div>
+<script>
+    function logout(){
+        window.location.href='/OAuth2/logout';
+    }
+
+    function redirectOrigin(){
+        window.location.href=document.getElementsByClassName('redirectDiv')[0].innerText ;
+    }
+</script>
+</body>
+</html>
